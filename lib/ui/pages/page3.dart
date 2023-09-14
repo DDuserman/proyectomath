@@ -27,7 +27,8 @@ class Page3 extends StatelessWidget {
             children: [
               SizedBox(
                 child: Text(
-                  "$op1 $operation $op2"
+                  //"$op1 $operation $op2"
+                  "hola"
                 ),
                 
               )
