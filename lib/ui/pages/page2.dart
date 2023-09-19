@@ -116,6 +116,31 @@ class Page2 extends StatelessWidget {
                                 ),
                               ))),
                     ),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 300,
+                    child: Material(
+                      color: Colors.lightBlue,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
+                      child: Center(
+                          child: TextButton(
+                              onPressed: () {
+                                null;
+                              },
+                              child: Text(
+                                handler.caso.score.toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ))),
+                    ),
                   ))
             ],
           ),

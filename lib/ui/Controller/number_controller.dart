@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class NumberController extends GetxController {
   final CasoDificultad caso = Get.find();
+  final stopwatch = Stopwatch();
 
   final _op1 = 0.obs;
   final _op2 = 0.obs;
@@ -33,15 +34,28 @@ class NumberController extends GetxController {
   }
 
   checkOperation(prim, sec, op, res) {
+    double newScore = 0;
     switch (op) {
       case "+":
         if (prim + sec == int.parse(res)) {
           //insertar llamado a función que actualice la operación
           if (fase < 5) {
             incrementFase();
+            resetResult();
             caso.generateCase();
           } else {
             resetFase();
+            stopwatch.stop();
+            if (caso.score <= 600) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
+            } else if (caso.score <= 1200) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
+            } else {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
+            }
+            caso.changeScore(newScore);
+            stopwatch.reset();
+            Get.offNamed('/page2');
           }
         } else {
           resetResult();

@@ -5,25 +5,29 @@ class BotonesDificultad {
   final CasoDificultad caso = Get.find();
 
   lvlEasy() {
-    caso.changeScore(0);
+    caso.changeScore(0.0);
     caso.generateCase();
+    caso.controller.stopwatch.start();
     Get.toNamed('/page3');
   }
 
   lvlMid() {
-    caso.changeScore(601);
+    caso.changeScore(601.0);
     caso.generateCase();
+    caso.controller.stopwatch.start();
     Get.toNamed('/page3');
   }
 
   lvlHard() {
-    caso.changeScore(1201);
+    caso.changeScore(1201.0);
     caso.generateCase();
+    caso.controller.stopwatch.start();
     Get.toNamed('/page3');
   }
 
   lvlPredet() {
     caso.generateCase();
+    caso.controller.stopwatch.start();
     Get.toNamed('/page3');
   }
 }

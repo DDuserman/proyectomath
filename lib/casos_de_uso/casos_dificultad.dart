@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 class CasoDificultad {
   late NumberController controller = Get.find();
-  int _score = 0;
-  int get score => _score;
-  changeScore(newScore) => _score = newScore;
+  double _score = 0;
+  double get score => _score;
+  changeScore(double newScore) => _score = newScore;
 
   generateCase() {
     if (_score <= 600) {
