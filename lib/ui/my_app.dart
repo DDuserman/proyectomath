@@ -9,7 +9,6 @@ import 'pages/page3.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

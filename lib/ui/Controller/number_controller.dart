@@ -41,7 +41,6 @@ class NumberController extends GetxController {
           //insertar llamado a función que actualice la operación
           if (fase < 5) {
             incrementFase();
-            resetResult();
             caso.generateCase();
           } else {
             resetFase();
@@ -55,8 +54,10 @@ class NumberController extends GetxController {
             }
             caso.changeScore(newScore);
             stopwatch.reset();
+
             Get.offNamed('/page2');
           }
+          resetResult();
         } else {
           resetResult();
         }
