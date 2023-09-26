@@ -134,7 +134,7 @@ class Page2 extends StatelessWidget {
                               child: Text(
                                 handler.caso.score.toString(),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 30,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

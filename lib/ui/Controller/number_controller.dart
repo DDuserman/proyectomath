@@ -38,7 +38,78 @@ class NumberController extends GetxController {
     switch (op) {
       case "+":
         if (prim + sec == int.parse(res)) {
-          //insertar llamado a función que actualice la operación
+          if (fase < 5) {
+            incrementFase();
+            caso.generateCase();
+          } else {
+            resetFase();
+            stopwatch.stop();
+            if (caso.score <= 600) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
+            } else if (caso.score <= 1200) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
+            } else {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
+            }
+            caso.changeScore(newScore);
+            stopwatch.reset();
+
+            Get.offNamed('/page2');
+          }
+          resetResult();
+        } else {
+          resetResult();
+        }
+      case "X":
+        if (prim * sec == int.parse(res)) {
+          if (fase < 5) {
+            incrementFase();
+            caso.generateCase();
+          } else {
+            resetFase();
+            stopwatch.stop();
+            if (caso.score <= 600) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
+            } else if (caso.score <= 1200) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
+            } else {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
+            }
+            caso.changeScore(newScore);
+            stopwatch.reset();
+
+            Get.offNamed('/page2');
+          }
+          resetResult();
+        } else {
+          resetResult();
+        }
+      case "-":
+        if (prim - sec == int.parse(res)) {
+          if (fase < 5) {
+            incrementFase();
+            caso.generateCase();
+          } else {
+            resetFase();
+            stopwatch.stop();
+            if (caso.score <= 600) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
+            } else if (caso.score <= 1200) {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
+            } else {
+              newScore = (450.0 - stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
+            }
+            caso.changeScore(newScore);
+            stopwatch.reset();
+
+            Get.offNamed('/page2');
+          }
+          resetResult();
+        } else {
+          resetResult();
+        }
+      case "/":
+        if (prim / sec == int.parse(res)) {
           if (fase < 5) {
             incrementFase();
             caso.generateCase();
