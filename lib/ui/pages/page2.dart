@@ -12,7 +12,13 @@ class Page2 extends StatelessWidget {
     BotonesDificultad handler = Get.find();
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: const Text(
+            'SELECT YOUR DIFFICULTY',
+            style: TextStyle(
+                color: Color.fromARGB(255, 176, 113, 113),
+                fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xff004881),
         ),
         body: Center(
           child: Column(

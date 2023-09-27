@@ -6,6 +6,7 @@ import 'package:f_navigation_template/ui/pages/page3b.dart';
 import 'pages/page1.dart';
 import 'pages/page2.dart';
 import 'pages/page3.dart';
+import 'pages/login_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/page1", page: () => const Page1()),
         GetPage(name: "/page2", page: () => const Page2()),
         GetPage(name: "/page3", page: () => const Page3()),
+        GetPage(name: "/login_page", page: () => const LoginPage()),
       ],
     );
   }
