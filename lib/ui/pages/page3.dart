@@ -1,3 +1,4 @@
+import 'package:f_proyectomath/casos_de_uso/casos_dificultad.dart';
 import 'package:f_proyectomath/ui/Controller/number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NumberController controller = Get.find();
+    CasoDificultad caso = Get.find();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Test matemático'),
@@ -303,7 +305,7 @@ class Page3 extends StatelessWidget {
                         color: Colors.red, // button color
                         child: InkWell(
                           splashColor: Colors.black, // splash color
-                          onTap: () => controller.goback(), // button pressed
+                          onTap: () => caso.goback(), // button pressed
                           child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -325,11 +327,7 @@ class Page3 extends StatelessWidget {
                         child: InkWell(
                           splashColor: Colors.black, // splash color
                           onTap: () {
-                            controller.checkOperation(
-                                controller.op1,
-                                controller.op2,
-                                controller.operator,
-                                controller.result);
+                            caso.checkOperation();
                           }, // button pressed
                           child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,

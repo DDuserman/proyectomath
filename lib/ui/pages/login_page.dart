@@ -91,7 +91,6 @@ class _LoginState extends State<LoginPage> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             try {
-                              print("nomelacontes");
                               var user = await UserDataSource().getUser(1);
                               caso.changeScore(user.score!);
                               Get.offNamed('/page2');
