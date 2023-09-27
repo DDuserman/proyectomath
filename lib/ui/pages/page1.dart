@@ -23,8 +23,11 @@ class _Page1State extends State<Page1> {
     CasoDificultad caso = Get.find();
     return Scaffold(
       appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: const Text(
-            'TEST MATEMÁTICO',
+            'SIGNUP',
             style: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
@@ -43,6 +46,9 @@ class _Page1State extends State<Page1> {
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 // NOMBRE
+                SizedBox(
+                  height: 20.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -154,14 +160,14 @@ class _Page1State extends State<Page1> {
                 ),
                 // COLEGIO
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
                     controller: _controller4,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Colegio',
-                      prefixIcon: Icon(Icons.school_outlined),
+                      prefixIcon: Icon(Icons.apartment),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -172,23 +178,31 @@ class _Page1State extends State<Page1> {
                   ),
                 ),
                 //todo: call name routing here to page2 sending the name as a parameter
+                SizedBox(
+                  height: 20.0,
+                ),
                 ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        try {
-                          print("nomelacontes");
-                          var user = await UserDataSource().getUser(1);
-                          caso.changeScore(user.score!);
-                          Get.offNamed('/page2');
-                        } catch (e) {
-                          print("Error fetching user data: $e");
-                          // Handle the error as needed
-                        }
-                      } else {
-                        print("Form validation failed");
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        print("nomelacontes");
+                        var user = await UserDataSource().getUser(1);
+                        caso.changeScore(user.score!);
+                        Get.offNamed('/page2');
+                      } catch (e) {
+                        print("Error fetching user data: $e");
+                        // Handle the error as needed
                       }
-                    },
-                    child: const Text('Continuar'))
+                    } else {
+                      print("Form validation failed");
+                    }
+                  },
+                  child: const Text('Continuar',
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff004881)),
+                ),
               ],
             ),
           ),
