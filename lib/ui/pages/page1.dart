@@ -39,10 +39,9 @@ class _Page1State extends State<Page1> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text(
-                  'Digite sus datos',
-                  //textAlign: TextAlign.left
-                ),
+                Text('Digite sus datos',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 // NOMBRE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -62,25 +61,6 @@ class _Page1State extends State<Page1> {
                     },
                   ),
                 ),
-                //         Nacimiento
-                /*Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.go,
-                    controller: _controller2,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Fecha de nacimiento',
-                      prefixIcon: Icon(Icons.cake_outlined),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
-                  ),
-                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
