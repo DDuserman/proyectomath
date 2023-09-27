@@ -92,7 +92,6 @@ class _LoginState extends State<LoginPage> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             try {
-                              print("nomelacontes");
                               var user = await UserDataSource().getUser(1);
                               caso.changeScore(user.score!);
                               Get.offNamed('/page2');
@@ -104,7 +103,7 @@ class _LoginState extends State<LoginPage> {
                             print("Form validation failed");
                           }
                         },
-                        child: Text('Login',
+                        child: const Text('Login',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255))),
                         style: ElevatedButton.styleFrom(
