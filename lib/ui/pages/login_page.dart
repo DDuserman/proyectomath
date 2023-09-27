@@ -32,10 +32,10 @@ class _LoginState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text(
-                  'Digite sus datos',
-                  //textAlign: TextAlign.left
-                ),
+                const Text('Digite sus datos',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
                 // USUARIO
                 Padding(
                   padding: const EdgeInsets.all(10.0),
