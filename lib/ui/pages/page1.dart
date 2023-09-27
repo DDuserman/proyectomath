@@ -1,3 +1,5 @@
+import 'package:f_proyectomath/casos_de_uso/casos_dificultad.dart';
+import 'package:f_proyectomath/data/remote/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +20,7 @@ class _Page1State extends State<Page1> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    CasoDificultad caso = Get.find();
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -40,7 +43,7 @@ class _Page1State extends State<Page1> {
                   'Digite sus datos',
                   //textAlign: TextAlign.left
                 ),
-                // NOMBRE 
+                // NOMBRE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -87,19 +90,20 @@ class _Page1State extends State<Page1> {
                     // DÍA DE NACIMIENTO
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Día de nacimiento',
-                              prefixIcon: Icon(Icons.cake_outlined),),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2a,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Día de nacimiento',
+                          prefixIcon: Icon(Icons.cake_outlined),
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2a,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -108,18 +112,19 @@ class _Page1State extends State<Page1> {
                     // MES DE NACIMIENTO
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Mes de nacimiento',),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2b,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Mes de nacimiento',
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2b,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     // AÑO DE NACIMIENTO
@@ -128,18 +133,19 @@ class _Page1State extends State<Page1> {
                     ),
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Año de nacimiento',),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2c,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Año de nacimiento',
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2c,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     SizedBox(
@@ -187,10 +193,21 @@ class _Page1State extends State<Page1> {
                 ),
                 //todo: call name routing here to page2 sending the name as a parameter
                 ElevatedButton(
-                    onPressed: () => _formKey.currentState!.validate()
-                        ? Get.offNamed('/page2')
-                        //? Get.offNamed('/page2/?name=${_controller.text}')
-                        : null,
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          print("nomelacontes");
+                          var user = await UserDataSource().getUser(1);
+                          caso.changeScore(user.score!);
+                          Get.offNamed('/page2');
+                        } catch (e) {
+                          print("Error fetching user data: $e");
+                          // Handle the error as needed
+                        }
+                      } else {
+                        print("Form validation failed");
+                      }
+                    },
                     child: const Text('Continuar'))
               ],
             ),

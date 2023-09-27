@@ -1,5 +1,8 @@
 import 'package:f_proyectomath/casos_de_uso/casos_dificultad.dart';
+import 'package:f_proyectomath/domain/model/user_model.dart';
 import 'package:get/get.dart';
+
+import '../../data/remote/user_data.dart';
 
 class NumberController extends GetxController {
   final CasoDificultad caso = Get.find();
@@ -53,7 +56,11 @@ class NumberController extends GetxController {
             }
             caso.changeScore(newScore);
             stopwatch.reset();
-
+            UserDataSource().updateUser(User(
+                id: 1,
+                email: "bkersey66@scientificamerican.com",
+                password: "149529828404753",
+                score: newScore));
             Get.offNamed('/page2');
           }
           resetResult();
