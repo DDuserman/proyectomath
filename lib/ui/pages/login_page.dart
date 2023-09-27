@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../casos_de_uso/casos_dificultad.dart';
+import '../../data/remote/user_data.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -9,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
+  CasoDificultad caso = Get.find();
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -33,9 +37,8 @@ class _LoginState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text('Digite sus datos',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 // USUARIO
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -86,9 +89,21 @@ class _LoginState extends State<LoginPage> {
                     // LOGIN BUTTON
                     Flexible(
                       child: ElevatedButton(
-                        onPressed: () => _formKey.currentState!.validate()
-                            ? Get.offNamed('/page2')
-                            : null,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            try {
+                              print("nomelacontes");
+                              var user = await UserDataSource().getUser(1);
+                              caso.changeScore(user.score!);
+                              Get.offNamed('/page2');
+                            } catch (e) {
+                              print("Error fetching user data: $e");
+                              // Handle the error as needed
+                            }
+                          } else {
+                            print("Form validation failed");
+                          }
+                        },
                         child: Text('Login',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255))),

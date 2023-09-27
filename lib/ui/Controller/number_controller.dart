@@ -84,7 +84,11 @@ class NumberController extends GetxController {
             }
             caso.changeScore(newScore);
             stopwatch.reset();
-
+            UserDataSource().updateUser(User(
+                id: 1,
+                email: "bkersey66@scientificamerican.com",
+                password: "149529828404753",
+                score: newScore));
             Get.offNamed('/page2');
           }
           resetResult();
@@ -108,7 +112,11 @@ class NumberController extends GetxController {
             }
             caso.changeScore(newScore);
             stopwatch.reset();
-
+            UserDataSource().updateUser(User(
+                id: 1,
+                email: "bkersey66@scientificamerican.com",
+                password: "149529828404753",
+                score: newScore));
             Get.offNamed('/page2');
           }
           resetResult();
@@ -132,7 +140,11 @@ class NumberController extends GetxController {
             }
             caso.changeScore(newScore);
             stopwatch.reset();
-
+            UserDataSource().updateUser(User(
+                id: 1,
+                email: "bkersey66@scientificamerican.com",
+                password: "149529828404753",
+                score: newScore));
             Get.offNamed('/page2');
           }
           resetResult();
