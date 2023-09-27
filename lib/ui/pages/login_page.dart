@@ -71,7 +71,6 @@ class _LoginState extends State<LoginPage> {
                       }
                       return null;
                     },
-                    
                   ),
                 ),
                 SizedBox(
@@ -87,7 +86,9 @@ class _LoginState extends State<LoginPage> {
                     // LOGIN BUTTON
                     Flexible(
                       child: ElevatedButton(
-                        onPressed: () => null,
+                        onPressed: () => _formKey.currentState!.validate()
+                            ? Get.offNamed('/page2')
+                            : null,
                         child: Text('Login',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255))),
@@ -98,7 +99,8 @@ class _LoginState extends State<LoginPage> {
                     // SIGNUP BUTTON
                     Flexible(
                       child: ElevatedButton(
-                          onPressed: () => null, child: const Text('Signup')),
+                          onPressed: () => Get.offNamed('/page1'),
+                          child: const Text('Signup')),
                     ),
                     const SizedBox(
                       width: 10.0,

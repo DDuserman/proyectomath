@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.light,
       //todo: Implement name routing (initialRoute and getPages parameters)
-      initialRoute: "/page1",
+      initialRoute: "/login_page",
       getPages: [
         GetPage(name: "/page1", page: () => const Page1()),
         GetPage(name: "/page2", page: () => const Page2()),

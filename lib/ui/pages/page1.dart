@@ -40,7 +40,7 @@ class _Page1State extends State<Page1> {
                   'Digite sus datos',
                   //textAlign: TextAlign.left
                 ),
-                // NOMBRE 
+                // NOMBRE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -59,25 +59,6 @@ class _Page1State extends State<Page1> {
                     },
                   ),
                 ),
-                //         Nacimiento
-                /*Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.go,
-                    controller: _controller2,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Fecha de nacimiento',
-                      prefixIcon: Icon(Icons.cake_outlined),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
-                  ),
-                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -87,19 +68,20 @@ class _Page1State extends State<Page1> {
                     // DÍA DE NACIMIENTO
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Día de nacimiento',
-                              prefixIcon: Icon(Icons.cake_outlined),),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2a,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Día de nacimiento',
+                          prefixIcon: Icon(Icons.cake_outlined),
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2a,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -108,18 +90,19 @@ class _Page1State extends State<Page1> {
                     // MES DE NACIMIENTO
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Mes de nacimiento',),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2b,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Mes de nacimiento',
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2b,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     // AÑO DE NACIMIENTO
@@ -128,18 +111,19 @@ class _Page1State extends State<Page1> {
                     ),
                     Flexible(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(20),
-                              border: OutlineInputBorder(),
-                              labelText: 'Año de nacimiento',),
-                      textInputAction: TextInputAction.go,
-                      controller: _controller2c,
-                      validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor ingrese sus datos";
-                      }
-                      return null;
-                    },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(),
+                          labelText: 'Año de nacimiento',
+                        ),
+                        textInputAction: TextInputAction.go,
+                        controller: _controller2c,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor ingrese sus datos";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     SizedBox(
@@ -191,7 +175,11 @@ class _Page1State extends State<Page1> {
                         ? Get.offNamed('/page2')
                         //? Get.offNamed('/page2/?name=${_controller.text}')
                         : null,
-                    child: const Text('Continuar'))
+                    child: const Text('Continuar',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255))),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff004881)))
               ],
             ),
           ),

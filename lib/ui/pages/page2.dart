@@ -15,7 +15,7 @@ class Page2 extends StatelessWidget {
           title: const Text(
             'SELECT YOUR DIFFICULTY',
             style: TextStyle(
-                color: Color.fromARGB(255, 176, 113, 113),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
           ),
           backgroundColor: Color(0xff004881),
