@@ -17,6 +17,8 @@ class _Page1State extends State<Page1> {
   final TextEditingController _controller2c = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
+  final TextEditingController _controller5 = TextEditingController();
+  final TextEditingController _controller6 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
+            color: Colors.white,
           ),
           title: const Text(
             'SIGNUP',
@@ -40,15 +42,24 @@ class _Page1State extends State<Page1> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Digite sus datos',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                // NOMBRE
-                SizedBox(
-                  height: 20.0,
+                // TEXTO DIGITE SUS DATOS
+                const SizedBox(
+                  height: 10.0,
                 ),
+                const Row(children: <Widget>[
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Ingrese sus datos',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  )
+                ]),
+                // NOMBRE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -61,7 +72,7 @@ class _Page1State extends State<Page1> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
@@ -86,7 +97,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2a,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -107,7 +118,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2b,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -128,7 +139,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2c,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -152,7 +163,7 @@ class _Page1State extends State<Page1> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
@@ -171,13 +182,81 @@ class _Page1State extends State<Page1> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
                   ),
                 ),
                 //todo: call name routing here to page2 sending the name as a parameter
+                SizedBox(
+                  height: 20.0,
+                ),
+                // INGRESAR USUARIO Y CONTRASEÑA
+                const Row(children: <Widget>[
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Ingrese su usuario y contraseña',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  )
+                ]),
+                // USUARIO
+                SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.go,
+                    controller: _controller5,
+                    decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
+                      labelText: 'Usuario',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ⓘ Por favor ingrese sus datos';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // CONTRASEÑA
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.go,
+                    controller: _controller6,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
+                      labelText: 'Contraseña',
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ⓘ Por favor ingrese sus datos';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // BOTON CONTINUAR
                 SizedBox(
                   height: 20.0,
                 ),
