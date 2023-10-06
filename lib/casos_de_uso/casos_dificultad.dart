@@ -1,12 +1,16 @@
 import 'dart:math';
 import 'package:f_proyectomath/ui/Controller/number_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../data/Local/preferences.dart';
 import '../data/remote/user_data.dart';
 import '../domain/model/user_model.dart';
 
 class CasoDificultad {
   late NumberController controller = Get.find();
+  final sharedPreferences = LocalPreferences();
+
   double _score = 0;
   double get score => _score;
   changeScore(double newScore) => _score = newScore;
@@ -37,11 +41,59 @@ class CasoDificultad {
     }
   }
 
-  checkOperation() {
+  registerUserData(name, email, grade, school, birthday, lastname) async {
+    // primero guardar en preferences
+    sharedPreferences.storeData<String>('userName', name);
+    sharedPreferences.storeData<String>('email', email);
+    sharedPreferences.storeData<String>('grade', grade);
+    sharedPreferences.storeData<String>('school', school);
+    sharedPreferences.storeData<String>('bd', birthday);
+    sharedPreferences.storeData<String>('lastName', lastname);
+    sharedPreferences.storeData<double>('score', score);
+
+    // se cambian los valores locales
+    controller.setUserName(name);
+    controller.setEmail(email);
+    controller.setGrade(grade);
+    controller.setSchool(school);
+    controller.setBirthday(birthday);
+    controller.setlastName(lastname);
+  }
+
+  correctAnswer(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Very well done ${controller.userName}'),
+            content: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Correct Answer!'),
+            ),
+          );
+        });
+  }
+
+  wrongAnswer(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Oh no! ${controller.userName}'),
+            content: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Incorrect Answer!'),
+            ),
+          );
+        });
+  }
+
+  checkOperation(context) {
     double newScore = 0;
     switch (controller.operator) {
       case "+":
         if (controller.op1 + controller.op2 == int.parse(controller.result)) {
+          correctAnswer(context);
           if (controller.fase < 5) {
             controller.incrementFase();
             controller.caso.generateCase();
@@ -63,16 +115,21 @@ class CasoDificultad {
             UserDataSource().updateUser(User(
                 id: 1,
                 email: "bkersey66@scientificamerican.com",
-                password: "149529828404753",
+                password: "012345678901234",
                 score: newScore));
+
+            sharedPreferences.storeData<double>('score', newScore);
+
             Get.offNamed('/page2');
           }
           controller.resetResult();
         } else {
           controller.resetResult();
+          wrongAnswer(context);
         }
       case "X":
         if (controller.op1 * controller.op2 == int.parse(controller.result)) {
+          correctAnswer(context);
           if (controller.fase < 5) {
             controller.incrementFase();
             controller.caso.generateCase();
@@ -96,14 +153,19 @@ class CasoDificultad {
                 email: "bkersey66@scientificamerican.com",
                 password: "149529828404753",
                 score: newScore));
+
+            sharedPreferences.storeData<double>('score', newScore);
+
             Get.offNamed('/page2');
           }
           controller.resetResult();
         } else {
           controller.resetResult();
+          wrongAnswer(context);
         }
       case "-":
         if (controller.op1 - controller.op2 == int.parse(controller.result)) {
+          correctAnswer(context);
           if (controller.fase < 5) {
             controller.incrementFase();
             controller.caso.generateCase();
@@ -127,14 +189,19 @@ class CasoDificultad {
                 email: "bkersey66@scientificamerican.com",
                 password: "149529828404753",
                 score: newScore));
+
+            sharedPreferences.storeData<double>('score', newScore);
+
             Get.offNamed('/page2');
           }
           controller.resetResult();
         } else {
           controller.resetResult();
+          wrongAnswer(context);
         }
       case "/":
         if (controller.op1 / controller.op2 == int.parse(controller.result)) {
+          correctAnswer(context);
           if (controller.fase < 5) {
             controller.incrementFase();
             controller.caso.generateCase();
@@ -158,11 +225,15 @@ class CasoDificultad {
                 email: "bkersey66@scientificamerican.com",
                 password: "149529828404753",
                 score: newScore));
+
+            sharedPreferences.storeData<double>('score', newScore);
+
             Get.offNamed('/page2');
           }
           controller.resetResult();
         } else {
           controller.resetResult();
+          wrongAnswer(context);
         }
       default:
         null;

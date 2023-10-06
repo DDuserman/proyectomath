@@ -10,19 +10,42 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BotonesDificultad handler = Get.find();
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'SELECT YOUR DIFFICULTY',
+            'SELECT YOUR DIFFICULTY!',
             style: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
           ),
+          centerTitle: true,
           backgroundColor: Color(0xff004881),
         ),
         body: Center(
           child: Column(
             children: [
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: SizedBox(
+                    height: 50,
+                    width: 300,
+                    child: Material(
+                      color: Colors.blueGrey,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
+                      child: Center(
+                          child: Text(
+                        'SCORE: ${handler.caso.score.toString()} POINTS',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                    ),
+                  )),
               Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: SizedBox(
@@ -123,31 +146,6 @@ class Page2 extends StatelessWidget {
                               ))),
                     ),
                   )),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: SizedBox(
-                    height: 50,
-                    width: 300,
-                    child: Material(
-                      color: Colors.lightBlue,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0)),
-                      child: Center(
-                          child: TextButton(
-                              onPressed: () {
-                                null;
-                              },
-                              child: Text(
-                                handler.caso.score.toString(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ))),
-                    ),
-                  ))
             ],
           ),
         ));

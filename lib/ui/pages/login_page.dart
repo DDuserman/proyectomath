@@ -76,7 +76,7 @@ class _LoginState extends State<LoginPage> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 1.0,
                 ),
                 // BOTONES DE LOGIN Y SIGN UP
@@ -94,6 +94,7 @@ class _LoginState extends State<LoginPage> {
                             try {
                               var user = await UserDataSource().getUser(1);
                               caso.changeScore(user.score!);
+                              // funcion log in
                               Get.offNamed('/page2');
                             } catch (e) {
                               print("Error fetching user data: $e");
@@ -103,11 +104,11 @@ class _LoginState extends State<LoginPage> {
                             print("Form validation failed");
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff004881)),
                         child: const Text('Login',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255))),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff004881)),
                       ),
                     ),
                     // SIGNUP BUTTON

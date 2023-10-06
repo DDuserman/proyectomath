@@ -71,7 +71,7 @@ class UserDataSource {
   }
 
   Future<bool> updateUser(User user) async {
-    final response = await http.put(
+    final response = await http.patch(
       Uri.parse("https://retoolapi.dev/$apiKey/data/${user.id}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',

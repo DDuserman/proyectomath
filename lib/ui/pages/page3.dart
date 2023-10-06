@@ -327,7 +327,7 @@ class Page3 extends StatelessWidget {
                         child: InkWell(
                           splashColor: Colors.black, // splash color
                           onTap: () {
-                            caso.checkOperation();
+                            caso.checkOperation(context);
                           }, // button pressed
                           child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
