@@ -12,6 +12,7 @@ class NumberController extends GetxController {
   final _school = ''.obs;
   final _birthday = ''.obs;
   final _lastName = ''.obs;
+  final _password = ''.obs;
 
   //funcionalidad de operaciones
   final _op1 = 0.obs;
@@ -27,6 +28,7 @@ class NumberController extends GetxController {
   String get school => _school.value;
   String get birthday => _birthday.value;
   String get lastName => _lastName.value;
+  String get password => _password.value;
 
   //funcionalidad de operaciones
   int get op1 => _op1.value;
@@ -42,6 +44,7 @@ class NumberController extends GetxController {
   setSchool(newValue) => _school.value = newValue;
   setBirthday(newValue) => _birthday.value = newValue;
   setlastName(newValue) => _lastName.value = newValue;
+  setPassword(newValue) => _password.value = newValue;
 
   //funcionalidad de operaciones
   setOp1(newValue) => _op1.value = newValue;

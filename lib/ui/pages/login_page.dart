@@ -128,7 +128,14 @@ class _LoginState extends State<LoginPage> {
                     // SIGNUP BUTTON
                     Flexible(
                       child: ElevatedButton(
-                          onPressed: () => Get.toNamed('/page1'),
+                          onPressed: () async {
+                            if (await caso.logInLocal(
+                                _controller.text, _controller2.text)) {
+                              Get.toNamed('/page1');
+                            } else {
+                              null;
+                            }
+                          },
                           child: const Text('Crear cuenta')),
                     ),
                     const SizedBox(width: 10.0),

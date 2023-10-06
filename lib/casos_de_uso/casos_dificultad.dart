@@ -11,7 +11,7 @@ class CasoDificultad {
   late NumberController controller = Get.find();
   final sharedPreferences = LocalPreferences();
 
-  double _score = 0;
+  double _score = 0.truncateToDouble();
   double get score => _score;
   changeScore(double newScore) => _score = newScore;
 
@@ -41,15 +41,16 @@ class CasoDificultad {
     }
   }
 
-  registerUserData(name, email, grade, school, birthday, lastname) async {
+  registerUserData(name, email, grade, school, birthday, pass) async {
     // primero guardar en preferences
-    sharedPreferences.storeData<String>('userName', name);
-    sharedPreferences.storeData<String>('email', email);
-    sharedPreferences.storeData<String>('grade', grade);
-    sharedPreferences.storeData<String>('school', school);
-    sharedPreferences.storeData<String>('bd', birthday);
-    sharedPreferences.storeData<String>('lastName', lastname);
-    sharedPreferences.storeData<double>('score', score);
+    await sharedPreferences.storeData<String>('userName', name);
+    await sharedPreferences.storeData<String>('email', email);
+    await sharedPreferences.storeData<String>('grade', grade);
+    await sharedPreferences.storeData<String>('school', school);
+    await sharedPreferences.storeData<String>('bd', birthday);
+    await sharedPreferences.storeData<String>('lastName', name);
+    await sharedPreferences.storeData<double>('score', score);
+    await sharedPreferences.storeData<String>('pass', pass);
 
     // se cambian los valores locales
     controller.setUserName(name);
@@ -57,7 +58,21 @@ class CasoDificultad {
     controller.setGrade(grade);
     controller.setSchool(school);
     controller.setBirthday(birthday);
-    controller.setlastName(lastname);
+    controller.setlastName(name);
+    controller.setPassword(pass);
+  }
+
+  Future<bool> logInLocal<bool>(try_email, try_pass) async {
+    String email =
+        await sharedPreferences.retrieveData<String>('email') as String;
+    String pass =
+        await sharedPreferences.retrieveData<String>('pass') as String;
+
+    if (email == try_email && pass == try_pass) {
+      return true as bool;
+    } else {
+      return false as bool;
+    }
   }
 
   correctAnswer(context) {
@@ -88,40 +103,41 @@ class CasoDificultad {
         });
   }
 
-  checkOperation(context) {
+  opCorrect(context) {
     double newScore = 0;
+    correctAnswer(context);
+    if (controller.fase < 5) {
+      controller.incrementFase();
+      controller.caso.generateCase();
+    } else {
+      controller.resetFase();
+      controller.stopwatch.stop();
+      if (controller.caso.score <= 600) {
+        newScore = (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
+      } else if (controller.caso.score <= 1200) {
+        newScore = (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
+      } else {
+        newScore = (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
+      }
+      controller.caso.changeScore(newScore);
+      controller.stopwatch.reset();
+      UserDataSource().updateUser(User(
+          id: 1,
+          email: "bkersey66@scientificamerican.com",
+          password: "012345678901234",
+          score: newScore));
+
+      sharedPreferences.storeData<double>('score', newScore);
+
+      Get.offNamed('/page2');
+    }
+  }
+
+  checkOperation(context) {
     switch (controller.operator) {
       case "+":
         if (controller.op1 + controller.op2 == int.parse(controller.result)) {
-          correctAnswer(context);
-          if (controller.fase < 5) {
-            controller.incrementFase();
-            controller.caso.generateCase();
-          } else {
-            controller.resetFase();
-            controller.stopwatch.stop();
-            if (controller.caso.score <= 600) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
-            } else if (controller.caso.score <= 1200) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
-            } else {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
-            }
-            controller.caso.changeScore(newScore);
-            controller.stopwatch.reset();
-            UserDataSource().updateUser(User(
-                id: 1,
-                email: "bkersey66@scientificamerican.com",
-                password: "012345678901234",
-                score: newScore));
-
-            sharedPreferences.storeData<double>('score', newScore);
-
-            Get.offNamed('/page2');
-          }
+          opCorrect(context);
           controller.resetResult();
         } else {
           controller.resetResult();
@@ -129,35 +145,7 @@ class CasoDificultad {
         }
       case "X":
         if (controller.op1 * controller.op2 == int.parse(controller.result)) {
-          correctAnswer(context);
-          if (controller.fase < 5) {
-            controller.incrementFase();
-            controller.caso.generateCase();
-          } else {
-            controller.resetFase();
-            controller.stopwatch.stop();
-            if (controller.caso.score <= 600) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
-            } else if (controller.caso.score <= 1200) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
-            } else {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
-            }
-            controller.caso.changeScore(newScore);
-            controller.stopwatch.reset();
-            UserDataSource().updateUser(User(
-                id: 1,
-                email: "bkersey66@scientificamerican.com",
-                password: "149529828404753",
-                score: newScore));
-
-            sharedPreferences.storeData<double>('score', newScore);
-
-            Get.offNamed('/page2');
-          }
+          opCorrect(context);
           controller.resetResult();
         } else {
           controller.resetResult();
@@ -165,35 +153,7 @@ class CasoDificultad {
         }
       case "-":
         if (controller.op1 - controller.op2 == int.parse(controller.result)) {
-          correctAnswer(context);
-          if (controller.fase < 5) {
-            controller.incrementFase();
-            controller.caso.generateCase();
-          } else {
-            controller.resetFase();
-            controller.stopwatch.stop();
-            if (controller.caso.score <= 600) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
-            } else if (controller.caso.score <= 1200) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
-            } else {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
-            }
-            controller.caso.changeScore(newScore);
-            controller.stopwatch.reset();
-            UserDataSource().updateUser(User(
-                id: 1,
-                email: "bkersey66@scientificamerican.com",
-                password: "149529828404753",
-                score: newScore));
-
-            sharedPreferences.storeData<double>('score', newScore);
-
-            Get.offNamed('/page2');
-          }
+          opCorrect(context);
           controller.resetResult();
         } else {
           controller.resetResult();
@@ -201,35 +161,7 @@ class CasoDificultad {
         }
       case "/":
         if (controller.op1 / controller.op2 == int.parse(controller.result)) {
-          correctAnswer(context);
-          if (controller.fase < 5) {
-            controller.incrementFase();
-            controller.caso.generateCase();
-          } else {
-            controller.resetFase();
-            controller.stopwatch.stop();
-            if (controller.caso.score <= 600) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 1.5;
-            } else if (controller.caso.score <= 1200) {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 2.5;
-            } else {
-              newScore =
-                  (450.0 - controller.stopwatch.elapsed.inSeconds) * 1.1 * 3.5;
-            }
-            controller.caso.changeScore(newScore);
-            controller.stopwatch.reset();
-            UserDataSource().updateUser(User(
-                id: 1,
-                email: "bkersey66@scientificamerican.com",
-                password: "149529828404753",
-                score: newScore));
-
-            sharedPreferences.storeData<double>('score', newScore);
-
-            Get.offNamed('/page2');
-          }
+          opCorrect(context);
           controller.resetResult();
         } else {
           controller.resetResult();

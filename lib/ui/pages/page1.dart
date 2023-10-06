@@ -267,16 +267,16 @@ class _Page1State extends State<Page1> {
                         print("nomelacontes");
                         var user = await UserDataSource().getUser(1);
                         caso.changeScore(user.score!);
-                        String date = _controller2a.value.toString() +
-                            _controller2b.value.toString() +
-                            _controller2c.value.toString();
+                        String date =
+                            "${_controller2a.text}/${_controller2b.text}/${_controller2c.text}";
+                        String name = _controller.text;
                         caso.registerUserData(
-                            _controller.value,
-                            email,
-                            _controller3.value,
-                            _controller4,
+                            name,
+                            _controller5.text,
+                            _controller3.text,
+                            _controller4.text,
                             date,
-                            _controller.value);
+                            _controller6.text);
                         Get.offNamed('/page2');
                       } catch (e) {
                         print("Error fetching user data: $e");
