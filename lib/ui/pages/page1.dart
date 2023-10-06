@@ -17,14 +17,19 @@ class _Page1State extends State<Page1> {
   final TextEditingController _controller2c = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
+  final TextEditingController _controller5 = TextEditingController();
+  final TextEditingController _controller6 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     CasoDificultad caso = Get.find();
     return Scaffold(
       appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
           title: const Text(
-            'TEST MATEMÁTICO',
+            'SIGNUP',
             style: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
@@ -37,11 +42,23 @@ class _Page1State extends State<Page1> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Digite sus datos',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                // TEXTO DIGITE SUS DATOS
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Row(children: <Widget>[
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Ingrese sus datos',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  )
+                ]),
                 // NOMBRE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -55,7 +72,7 @@ class _Page1State extends State<Page1> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
@@ -80,7 +97,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2a,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -101,7 +118,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2b,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -122,7 +139,7 @@ class _Page1State extends State<Page1> {
                         controller: _controller2c,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor ingrese sus datos";
+                            return "ⓘ Por favor ingrese sus datos";
                           }
                           return null;
                         },
@@ -146,7 +163,7 @@ class _Page1State extends State<Page1> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
@@ -154,51 +171,127 @@ class _Page1State extends State<Page1> {
                 ),
                 // COLEGIO
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
                     controller: _controller4,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Colegio',
-                      prefixIcon: Icon(Icons.school_outlined),
+                      prefixIcon: Icon(Icons.apartment),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
                   ),
                 ),
                 //todo: call name routing here to page2 sending the name as a parameter
-                ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        try {
-                          print("nomelacontes");
-                          var user = await UserDataSource().getUser(1);
-                          caso.changeScore(user.score!);
-                          String date = _controller2a.value.toString() +
-                              _controller2b.value.toString() +
-                              _controller2c.value.toString();
-                          caso.registerUserData(
-                              _controller.value,
-                              email,
-                              _controller3.value,
-                              _controller4,
-                              date,
-                              _controller.value);
-                          Get.offNamed('/page2');
-                        } catch (e) {
-                          print("Error fetching user data: $e");
-                          // Handle the error as needed
-                        }
-                      } else {
-                        print("Form validation failed");
+                SizedBox(
+                  height: 20.0,
+                ),
+                // INGRESAR USUARIO Y CONTRASEÑA
+                const Row(children: <Widget>[
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Ingrese su usuario y contraseña',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  )
+                ]),
+                // USUARIO
+                SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.go,
+                    controller: _controller5,
+                    decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
+                      labelText: 'Usuario',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
+                      return null;
                     },
-                    child: const Text('Continuar'))
+                  ),
+                ),
+                // CONTRASEÑA
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.go,
+                    controller: _controller6,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
+                      labelText: 'Contraseña',
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ⓘ Por favor ingrese sus datos';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // BOTON CONTINUAR
+                SizedBox(
+                  height: 20.0,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        print("nomelacontes");
+                        var user = await UserDataSource().getUser(1);
+                        caso.changeScore(user.score!);
+                        String date = _controller2a.value.toString() +
+                            _controller2b.value.toString() +
+                            _controller2c.value.toString();
+                        caso.registerUserData(
+                            _controller.value,
+                            email,
+                            _controller3.value,
+                            _controller4,
+                            date,
+                            _controller.value);
+                        Get.offNamed('/page2');
+                      } catch (e) {
+                        print("Error fetching user data: $e");
+                        // Handle the error as needed
+                      }
+                    } else {
+                      print("Form validation failed");
+                    }
+                  },
+                  child: const Text('Continuar',
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff004881)),
+                ),
               ],
             ),
           ),

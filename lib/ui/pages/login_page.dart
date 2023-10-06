@@ -21,7 +21,7 @@ class _LoginState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
           title: const Text(
-            'WELCOME',
+            'TEST MATEMÁTICO',
             style: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
@@ -36,23 +36,31 @@ class _LoginState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Digite sus datos',
+                const Text('Ingrese sus datos',
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 // USUARIO
+                SizedBox(
+                  height: 20.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
                     controller: _controller,
                     decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
                       labelText: 'Usuario',
                       prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
@@ -64,28 +72,34 @@ class _LoginState extends State<LoginPage> {
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
                     controller: _controller2,
+                    obscureText: true,
                     decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff004881), width: 2.0)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.teal, width: 5.0)),
                       labelText: 'Contraseña',
                       prefixIcon: Icon(Icons.lock),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese sus datos';
+                        return 'ⓘ Por favor ingrese sus datos';
                       }
                       return null;
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 1.0,
+                SizedBox(
+                  height: 20.0,
                 ),
                 // BOTONES DE LOGIN Y SIGN UP
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const SizedBox(
-                      width: 1.0,
-                    ),
+                    const SizedBox(width: 10.0),
+                    const SizedBox(width: 10.0),
                     // LOGIN BUTTON
                     Flexible(
                       child: ElevatedButton(
@@ -114,12 +128,11 @@ class _LoginState extends State<LoginPage> {
                     // SIGNUP BUTTON
                     Flexible(
                       child: ElevatedButton(
-                          onPressed: () => Get.offNamed('/page1'),
-                          child: const Text('Signup')),
+                          onPressed: () => Get.toNamed('/page1'),
+                          child: const Text('Crear cuenta')),
                     ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
+                    const SizedBox(width: 10.0),
+                    const SizedBox(width: 10.0),
                   ],
                 ),
               ],

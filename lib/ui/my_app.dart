@@ -66,10 +66,10 @@ class MyApp extends StatelessWidget {
       //todo: Implement name routing (initialRoute and getPages parameters)
       initialRoute: "/login_page",
       getPages: [
+        GetPage(name: "/login_page", page: () => const LoginPage()),
         GetPage(name: "/page1", page: () => const Page1()),
         GetPage(name: "/page2", page: () => const Page2()),
         GetPage(name: "/page3", page: () => const Page3()),
-        GetPage(name: "/login_page", page: () => const LoginPage()),
       ],
     );
   }
