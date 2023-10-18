@@ -1,8 +1,6 @@
+import 'package:f_proyectomath/ui/Controller/number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../casos_de_uso/casos_dificultad.dart';
-import '../../data/remote/user_data.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,7 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  CasoDificultad caso = Get.find();
+  NumberController handler = Get.find();
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -26,7 +24,7 @@ class _LoginState extends State<LoginPage> {
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Color(0xff004881),
+          backgroundColor: const Color(0xff004881),
           centerTitle: true),
       body: Center(
         child: Padding(
@@ -40,7 +38,7 @@ class _LoginState extends State<LoginPage> {
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 // USUARIO
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Padding(
@@ -55,7 +53,7 @@ class _LoginState extends State<LoginPage> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.teal, width: 5.0)),
-                      labelText: 'Usuario',
+                      labelText: 'Email',
                       prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) {
@@ -91,7 +89,7 @@ class _LoginState extends State<LoginPage> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 // BOTONES DE LOGIN Y SIGN UP
@@ -105,14 +103,19 @@ class _LoginState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            try {
-                              var user = await UserDataSource().getUser(1);
-                              caso.changeScore(user.score!);
-                              // funcion log in
-                              Get.offNamed('/page2');
-                            } catch (e) {
-                              print("Error fetching user data: $e");
-                              // Handle the error as needed
+                            if (await handler.logIn(
+                                _controller.text, _controller2.text)) {
+                              try {
+                                var user = await handler
+                                    .getUserByQuery(_controller.text);
+                                handler.setActualUser(_controller.text);
+                                handler.cambiarScore(user.score!);
+                                // funcion log in
+                                Get.offNamed('/page2');
+                              } catch (e) {
+                                print("Error fetching user data: $e");
+                                // Handle the error as needed
+                              }
                             }
                           } else {
                             print("Form validation failed");
@@ -129,12 +132,7 @@ class _LoginState extends State<LoginPage> {
                     Flexible(
                       child: ElevatedButton(
                           onPressed: () async {
-                            if (await caso.logInLocal(
-                                _controller.text, _controller2.text)) {
-                              Get.toNamed('/page1');
-                            } else {
-                              null;
-                            }
+                            Get.toNamed('/page1');
                           },
                           child: const Text('Crear cuenta')),
                     ),

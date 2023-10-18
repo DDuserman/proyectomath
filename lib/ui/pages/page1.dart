@@ -1,5 +1,6 @@
 import 'package:f_proyectomath/casos_de_uso/casos_dificultad.dart';
 import 'package:f_proyectomath/data/remote/user_data.dart';
+import 'package:f_proyectomath/ui/Controller/number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,10 +23,10 @@ class _Page1State extends State<Page1> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    CasoDificultad caso = Get.find();
+    NumberController handler = Get.find();
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.white,
           ),
           title: const Text(
@@ -34,7 +35,7 @@ class _Page1State extends State<Page1> {
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Color(0xff004881),
+          backgroundColor: const Color(0xff004881),
           centerTitle: true),
       body: Center(
         child: Padding(
@@ -125,7 +126,7 @@ class _Page1State extends State<Page1> {
                       ),
                     ),
                     // AÑO DE NACIMIENTO
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Flexible(
@@ -145,7 +146,7 @@ class _Page1State extends State<Page1> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                   ],
@@ -189,7 +190,7 @@ class _Page1State extends State<Page1> {
                   ),
                 ),
                 //todo: call name routing here to page2 sending the name as a parameter
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 // INGRESAR USUARIO Y CONTRASEÑA
@@ -205,7 +206,7 @@ class _Page1State extends State<Page1> {
                   )
                 ]),
                 // USUARIO
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Padding(
@@ -220,7 +221,7 @@ class _Page1State extends State<Page1> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.teal, width: 5.0)),
-                      labelText: 'Usuario',
+                      labelText: 'Email',
                       prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) {
@@ -257,26 +258,26 @@ class _Page1State extends State<Page1> {
                   ),
                 ),
                 // BOTON CONTINUAR
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       try {
-                        print("nomelacontes");
                         var user = await UserDataSource().getUser(1);
-                        caso.changeScore(user.score!);
+                        handler.cambiarScore(user.score!);
                         String date =
                             "${_controller2a.text}/${_controller2b.text}/${_controller2c.text}";
                         String name = _controller.text;
-                        caso.registerUserData(
+                        handler.registerUser(
                             name,
                             _controller5.text,
                             _controller3.text,
                             _controller4.text,
                             date,
                             _controller6.text);
+                        handler.cambiarScore(0);
                         Get.offNamed('/page2');
                       } catch (e) {
                         print("Error fetching user data: $e");
@@ -286,11 +287,11 @@ class _Page1State extends State<Page1> {
                       print("Form validation failed");
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff004881)),
                   child: const Text('Continuar',
                       style:
                           TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff004881)),
                 ),
               ],
             ),

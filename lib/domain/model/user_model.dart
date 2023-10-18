@@ -46,7 +46,7 @@ class User {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
-        "password": email,
+        "password": password,
         "birthday": birthday,
         "grade": grade,
         "school": school,

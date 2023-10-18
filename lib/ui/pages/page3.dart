@@ -9,7 +9,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NumberController controller = Get.find();
-    CasoDificultad caso = Get.find();
+    //CasoDificultad caso = Get.find();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Test matemático'),
@@ -305,7 +305,8 @@ class Page3 extends StatelessWidget {
                         color: Colors.red, // button color
                         child: InkWell(
                           splashColor: Colors.black, // splash color
-                          onTap: () => caso.goback(), // button pressed
+                          onTap: () => controller
+                              .goback(controller.result), // button pressed
                           child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -327,7 +328,56 @@ class Page3 extends StatelessWidget {
                         child: InkWell(
                           splashColor: Colors.black, // splash color
                           onTap: () {
-                            caso.checkOperation(context);
+                            if (controller.verificar(
+                                controller.op1,
+                                controller.op2,
+                                controller.operator,
+                                int.parse(controller.result))) {
+                              print(controller.fase);
+                              if (controller.fase >= 4) {
+                                Get.offNamed("/page2");
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const AlertDialog(
+                                        title: Text(
+                                            'You finished this round! Keep doing such a great job!'),
+                                        content: Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Correct Answer!'),
+                                        ),
+                                      );
+                                    });
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            'Very well done ${controller.userName}'),
+                                        content: const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Correct Answer!'),
+                                        ),
+                                      );
+                                    });
+                              }
+                              controller.opCorrect(controller.fase);
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                          'Oh no! ${controller.userName}. Incorrect!'),
+                                      content: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text('Incorrect Answer!'),
+                                      ),
+                                    );
+                                  });
+                            }
+                            controller.resetResult();
                           }, // button pressed
                           child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,

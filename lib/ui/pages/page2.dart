@@ -1,4 +1,4 @@
-import 'package:f_proyectomath/casos_de_uso/botones_dificultad.dart';
+import 'package:f_proyectomath/ui/Controller/number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +9,7 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BotonesDificultad handler = Get.find();
+    NumberController handler = Get.find();
 
     return Scaffold(
         appBar: AppBar(
@@ -20,7 +20,7 @@ class Page2 extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          backgroundColor: Color(0xff004881),
+          backgroundColor: const Color(0xff004881),
         ),
         body: Center(
           child: Column(
@@ -36,7 +36,7 @@ class Page2 extends StatelessWidget {
                           const BorderRadius.all(Radius.circular(10.0)),
                       child: Center(
                           child: Text(
-                        'SCORE: ${handler.caso.score.toString()} POINTS',
+                        'SCORE: ${handler.getScore().toString()} POINTS',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 20,
@@ -58,7 +58,10 @@ class Page2 extends StatelessWidget {
                       child: Center(
                           child: TextButton(
                               onPressed: () {
-                                handler.lvlEasy();
+                                handler.cambiarScore(0);
+                                handler.generateCase(handler.getScore());
+                                Get.offNamed("/page3");
+                                handler.stopwatch.start();
                               },
                               child: const Text(
                                 "EASY",
@@ -83,7 +86,10 @@ class Page2 extends StatelessWidget {
                       child: Center(
                           child: TextButton(
                               onPressed: () {
-                                handler.lvlMid();
+                                handler.cambiarScore(601);
+                                handler.generateCase(handler.getScore());
+                                Get.offNamed("/page3");
+                                handler.stopwatch.start();
                               },
                               child: const Text(
                                 "INTERMEDIATE",
@@ -108,7 +114,10 @@ class Page2 extends StatelessWidget {
                       child: Center(
                           child: TextButton(
                               onPressed: () {
-                                handler.lvlHard();
+                                handler.cambiarScore(1201);
+                                handler.generateCase(handler.getScore());
+                                Get.offNamed("/page3");
+                                handler.stopwatch.start();
                               },
                               child: const Text(
                                 "HARD",
@@ -133,7 +142,9 @@ class Page2 extends StatelessWidget {
                       child: Center(
                           child: TextButton(
                               onPressed: () {
-                                handler.lvlPredet();
+                                handler.generateCase(handler.getScore());
+                                Get.offNamed("/page3");
+                                handler.stopwatch.start();
                               },
                               child: const Text(
                                 "AUTO-DETECT",

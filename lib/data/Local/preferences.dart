@@ -8,6 +8,9 @@ class LocalPreferences {
       case String:
         value = prefs.getString(key);
         break;
+      case int:
+        value = prefs.getInt(key);
+        break;
       case double:
         value = prefs.getDouble(key);
         break;
@@ -22,6 +25,9 @@ class LocalPreferences {
     switch (T) {
       case String:
         prefs.setString(key, value as String);
+        break;
+      case int:
+        prefs.setInt(key, value as int);
         break;
       case double:
         prefs.setDouble(key, value as double);
