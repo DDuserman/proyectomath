@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:f_proyectomath/ui/Controller/number_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,6 +46,7 @@ class _LoginState extends State<LoginPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
+                    key: const Key("campoCorreo"),
                     controller: _controller,
                     decoration: const InputDecoration(
                       enabledBorder: UnderlineInputBorder(
@@ -69,6 +71,7 @@ class _LoginState extends State<LoginPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
                     textInputAction: TextInputAction.go,
+                    key: const Key("campoContraseña"),
                     controller: _controller2,
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -101,15 +104,24 @@ class _LoginState extends State<LoginPage> {
                     // LOGIN BUTTON
                     Flexible(
                       child: ElevatedButton(
+                        key: Key("LoginButton"),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             if (await handler.logIn(
                                 _controller.text, _controller2.text)) {
                               try {
-                                var user = await handler
-                                    .getUserByQuery(_controller.text);
-                                handler.setActualUser(_controller.text);
-                                handler.cambiarScore(user.score!);
+                                var connectivityResult =
+                                    await (Connectivity().checkConnectivity());
+                                if (connectivityResult !=
+                                    ConnectivityResult.none) {
+                                  var user = await handler
+                                      .getUserByQuery(_controller.text);
+                                  handler.cambiarScore(user.score!);
+                                  handler.setActualUser(_controller.text);
+                                }
+                                handler.setLocalScore();
+                                handler.setLocalName();
+
                                 // funcion log in
                                 Get.offNamed('/page2');
                               } catch (e) {

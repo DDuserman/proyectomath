@@ -72,4 +72,12 @@ class CasoDificultad {
   Future<User> getUserByQuery(String email) async {
     return await repo.getUserByQuery(email);
   }
+
+  Future<double> getLocalScore() async {
+    return await repo.getLocalScore();
+  }
+
+  Future<String> getLocalName() async {
+    return await repo.getLocalName();
+  }
 }

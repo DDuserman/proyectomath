@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import '../../../domain/model/user_model.dart';
 import 'package:http/http.dart' as http;
@@ -61,9 +62,21 @@ class UserDataSource {
     var response = await http.get(request);
     if (response.statusCode == 200) {
       logInfo(response.body);
-      final data = jsonDecode(response.body)[0];
+      var lista = jsonDecode(response.body);
+      bool vacio = false;
 
-      userdata = User.fromJson(data);
+      try {
+        final somedata = lista[0];
+      } catch (e) {
+        vacio = true;
+      }
+
+      if (vacio) {
+        userdata = User(email: "", password: "");
+      } else {
+        final data = jsonDecode(response.body)[0];
+        userdata = User.fromJson(data);
+      }
     } else {
       logError("Got error code ${response.statusCode}");
       return Future.error('Error code ${response.statusCode}');

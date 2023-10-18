@@ -16,7 +16,6 @@ class Repository {
   }
 
   Future<bool> login(String email, String password) async {
-    var user = await dbData.getUserbyquery(email);
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       var localemail = await sharedPreferences.retrieveData<String>('email');
@@ -28,6 +27,7 @@ class Repository {
         return false;
       }
     } else {
+      var user = await dbData.getUserbyquery(email);
       if (user.password == password) {
         await sharedPreferences.storeData<int>('id', user.id!);
         await sharedPreferences.storeData<String>('userName', user.firstName!);
@@ -63,23 +63,28 @@ class Repository {
   Future<bool> logOut() async => await _authenticationDataSource.logOut();
 
   Future<void> updateUser(score) async {
-    print(await sharedPreferences.retrieveData<int>("id"));
-    User user = User(
-        id: await sharedPreferences.retrieveData<int>("id"),
-        email: await sharedPreferences.retrieveData<String>('email') as String,
-        grade: await sharedPreferences.retrieveData<String>('grade') as String,
-        school:
-            await sharedPreferences.retrieveData<String>('school') as String,
-        birthday: await sharedPreferences.retrieveData<String>('bd') as String,
-        lastName:
-            await sharedPreferences.retrieveData<String>('lastName') as String,
-        firstName:
-            await sharedPreferences.retrieveData<String>('userName') as String,
-        password:
-            await sharedPreferences.retrieveData<String>('pass') as String,
-        score: score);
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult != ConnectivityResult.none) {
+      User user = User(
+          id: await sharedPreferences.retrieveData<int>("id"),
+          email:
+              await sharedPreferences.retrieveData<String>('email') as String,
+          grade:
+              await sharedPreferences.retrieveData<String>('grade') as String,
+          school:
+              await sharedPreferences.retrieveData<String>('school') as String,
+          birthday:
+              await sharedPreferences.retrieveData<String>('bd') as String,
+          lastName: await sharedPreferences.retrieveData<String>('lastName')
+              as String,
+          firstName: await sharedPreferences.retrieveData<String>('userName')
+              as String,
+          password:
+              await sharedPreferences.retrieveData<String>('pass') as String,
+          score: score);
 
-    await UserDataSource().updateUser(user);
+      await UserDataSource().updateUser(user);
+    }
     await sharedPreferences.storeData<double>("score", score);
   }
 
@@ -112,5 +117,13 @@ class Repository {
 
   Future<User> getUserByQuery(String email) async {
     return await dbData.getUserbyquery(email);
+  }
+
+  Future<double> getLocalScore() async {
+    return await sharedPreferences.retrieveData<double>('score') as double;
+  }
+
+  Future<String> getLocalName() async {
+    return await sharedPreferences.retrieveData<String>('userName') as String;
   }
 }

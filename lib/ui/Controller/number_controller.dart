@@ -175,4 +175,14 @@ class NumberController extends GetxController {
   Future<User> getUserByQuery(String email) async {
     return await caso.getUserByQuery(email);
   }
+
+  setLocalScore() async {
+    double value = await caso.getLocalScore();
+    caso.changeScore(value);
+  }
+
+  setLocalName() async {
+    String value = await caso.getLocalName();
+    setUserName(value);
+  }
 }
