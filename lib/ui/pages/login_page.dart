@@ -116,6 +116,20 @@ class _LoginState extends State<LoginPage> {
                                 print("Error fetching user data: $e");
                                 // Handle the error as needed
                               }
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const AlertDialog(
+                                      title: Text('¡Identificate!'),
+                                      content: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                            'Algo salió mal con las credenciales...'),
+                                      ),
+                                    );
+                                  });
                             }
                           } else {
                             print("Form validation failed");

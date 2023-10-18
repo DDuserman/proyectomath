@@ -332,7 +332,6 @@ class Page3 extends StatelessWidget {
                                 controller.op2,
                                 controller.operator,
                                 int.parse(controller.result))) {
-                              print(controller.fase);
                               if (controller.fase >= 4) {
                                 Get.offNamed("/page2");
                                 showDialog(
